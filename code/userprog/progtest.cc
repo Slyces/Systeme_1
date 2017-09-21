@@ -1,11 +1,11 @@
-// progtest.cc 
+// progtest.cc
 //      Test routines for demonstrating that Nachos can load
-//      a user program and execute it.  
+//      a user program and execute it.
 //
 //      Also, routines for testing the Console hardware device.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 #include "copyright.h"
@@ -85,16 +85,39 @@ ConsoleTest (const char *in, const char *out)
     writeDone = new Semaphore ("write done", 0);
     console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, 0);
 
+    #ifdef CHANGED
+    console->PutChar (62);
+    writeDone->P ();
+    console->PutChar (62);
+    writeDone->P ();
+    console->PutChar (32);
+    writeDone->P ();
+    #endif //CHANGED
+
     for (;;)
       {
-	  readAvail->P ();	// wait for character to arrive
-	  ch = console->GetChar ();
-	  console->PutChar (ch);	// echo it!
-	  writeDone->P ();	// wait for write to finish
-	  if (ch == 'q') {
-	      printf ("Nothing more, bye!\n");
-	      break;		// if q, quit
-	  }
+    	  readAvail->P ();	// wait for character to arrive
+    	  ch = console -> GetChar ();
+
+    	  console->PutChar (ch);	// echo it!
+
+    	  writeDone->P ();	// wait for write to finish
+
+        #ifdef CHANGED
+        if (ch == '\n') {
+          console->PutChar (62);
+          writeDone->P ();
+          console->PutChar (62);
+          writeDone->P ();
+          console->PutChar (32);
+          writeDone->P ();
+        }
+        #endif //CHANGED
+
+        if (ch == 'q') {
+    	      printf ("\n\nNothing more, bye!\n");
+    	      break;		// if q, quit
+    	  }
       }
     delete console;
     delete readAvail;
