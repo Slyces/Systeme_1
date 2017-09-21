@@ -99,9 +99,20 @@ ConsoleTest (const char *in, const char *out)
     	  readAvail->P ();	// wait for character to arrive
     	  ch = console -> GetChar ();
 
-    	  console->PutChar (ch);	// echo it!
-
+        #ifdef CHANGED
+        if (ch != '\n') {
+          console->PutChar (60);
+          writeDone->P ();
+        }
+        #endif //CHANGED
+        console->PutChar (ch);	// echo it!
     	  writeDone->P ();	// wait for write to finish
+        #ifdef CHANGED
+        if (ch != '\n') {
+          console->PutChar (62);
+          writeDone->P ();
+        }
+        #endif //CHANGED
 
         #ifdef CHANGED
         if (ch == '\n') {
