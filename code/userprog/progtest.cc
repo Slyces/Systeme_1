@@ -115,9 +115,16 @@ ConsoleTest (const char *in, const char *out)
         #endif //CHANGED
 
         if (ch == 'q') {
-    	      printf ("\n\nNothing more, bye!\n");
+    	      printf ("\nNothing more, bye!\n");
     	      break;		// if q, quit
     	  }
+
+        #ifdef CHANGED
+          if (ch == EOF) {
+            printf ("\n>> Aurevoir.\n");
+            break; //if Eof, quit politely.
+          }
+        #endif
       }
     delete console;
     delete readAvail;
