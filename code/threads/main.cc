@@ -131,7 +131,7 @@ main (int argc, char **argv)
     		  }
 	    }
     #ifndef CHANGED
-    else if (!strcmp (*argv, "-cs"))
+    else if (!strcmp (*argv, "-sc"))
       {
         if (argc == 1)
     		    ConsoleTest (NULL, NULL);

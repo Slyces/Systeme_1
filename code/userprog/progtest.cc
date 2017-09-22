@@ -151,8 +151,16 @@ void
 SynchConsoleTest (const char *in, const char *out) {
   char ch;
   SynchConsole *test_synchconsole = new SynchConsole(in, out);
-  while ((ch = test_synchconsole->SynchGetChar()) != EOF)
-    test_synchconsole->SynchPutChar(ch);
+
+  // Starting synch console, emmiting >> for user input
+  test_synchconsole -> SynchPutChar('>');
+  test_synchconsole -> SynchPutChar('>');
+
+  while ((ch = test_synchconsole->SynchGetChar()) != EOF) {
+    test_synchconsole -> SynchPutChar('<');
+    test_synchconsole -> SynchPutChar(ch);
+    test_synchconsole -> SynchPutChar('>');
+  }
   fprintf(stderr, "EOF detected in SynchConsole!\n");
 }
 #endif //CHANGED
