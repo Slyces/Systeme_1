@@ -138,7 +138,7 @@ main (int argc, char **argv)
     		else
     		  {
     		     ASSERT (argc > 2);
-    		     SynchConsole (*(argv + 1), *(argv + 2));
+    		     SynchConsoleTest (*(argv + 1), *(argv + 2));
     		     argCount = 3;
     		  }
       }
