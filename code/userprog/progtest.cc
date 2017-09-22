@@ -105,8 +105,10 @@ ConsoleTest (const char *in, const char *out)
           writeDone->P ();
         }
         #endif //CHANGED
+
         console->PutChar (ch);	// echo it!
     	  writeDone->P ();	// wait for write to finish
+
         #ifdef CHANGED
         if (ch != '\n') {
           console->PutChar (62);
@@ -116,7 +118,7 @@ ConsoleTest (const char *in, const char *out)
 
         #ifdef CHANGED
         if (ch == '\n') {
-          console->PutChar (62);
+          console -> PutChar (62);
           writeDone->P ();
           console->PutChar (62);
           writeDone->P ();

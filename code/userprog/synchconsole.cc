@@ -24,16 +24,19 @@
     console->PutChar (ch);
     writeDone->P ();
   }
+  #@TODO vérifier mon erreur
   int SynchConsole::SynchGetChar() {
     readAvail->P ();	// wait for character to arrive
-    ch = console -> GetChar ();
+    return console -> GetChar ();
   }
   void SynchConsole::SynchPutString(const char s[]) {
-    for (int i = 0; i < sizeof(s); i++) {
+    for (unsigned int i = 0; i < sizeof(s); i++) {
       SynchPutChar(s[i]);
     }
   }
+  #if 0
   void SynchConsole::SynchGetString(char *s, int n) {
     //
   }
+  #endif
 #endif // CHANGED
