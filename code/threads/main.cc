@@ -121,15 +121,28 @@ main (int argc, char **argv)
 	    }
 	  else if (!strcmp (*argv, "-c"))
 	    {			// test the console
-		if (argc == 1)
-		    ConsoleTest (NULL, NULL);
-		else
-		  {
-		      ASSERT (argc > 2);
-		      ConsoleTest (*(argv + 1), *(argv + 2));
-		      argCount = 3;
-		  }
+    		if (argc == 1)
+    		    ConsoleTest (NULL, NULL);
+    		else
+    		  {
+    		      ASSERT (argc > 2);
+    		      ConsoleTest (*(argv + 1), *(argv + 2));
+    		      argCount = 3;
+    		  }
 	    }
+    #ifndef CHANGED
+    else if (!strcmp (*argv, "-cs"))
+      {
+        if (argc == 1)
+    		    ConsoleTest (NULL, NULL);
+    		else
+    		  {
+    		     ASSERT (argc > 2);
+    		     SynchConsole (*(argv + 1), *(argv + 2));
+    		     argCount = 3;
+    		  }
+      }
+    #endif //CHANGED
 #endif // USER_PROGRAM
 #ifdef FILESYS
 	  if (!strcmp (*argv, "-cp"))

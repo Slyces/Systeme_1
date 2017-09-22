@@ -24,7 +24,7 @@
     console->PutChar (ch);
     writeDone->P ();
   }
-  #@TODO vérifier mon erreur
+  // @TODO vérifier mon erreur
   int SynchConsole::SynchGetChar() {
     readAvail->P ();	// wait for character to arrive
     return console -> GetChar ();
