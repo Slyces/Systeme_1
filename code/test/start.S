@@ -140,20 +140,20 @@ Fork:
 
 	.globl Yield
 	.ent	Yield
-Yield:
+  Yield:
 	addiu $2,$0,SC_Yield
 	syscall
 	j	$31
 	.end Yield
 
 #ifdef CHANGED
-    .globl Halt
-    .ent	Halt
-  Halt:
-    addiu $2,$0,SC_Halt
-    syscall
-    j	$31
-    .end Halt
+  .globl PutChar
+  .ent	PutChar
+PutChar:
+  addiu $2,$0,SC_PutChar
+  syscall
+  j	$31
+  .end PutChar
 #endif
 
 /* dummy function to keep gcc happy */
