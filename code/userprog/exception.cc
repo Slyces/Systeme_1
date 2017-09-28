@@ -104,6 +104,14 @@ ExceptionHandler(ExceptionType which)
             break;
         }
 
+        case SC_GetChar:
+        {
+            DEBUG('s', "GetChar\n");
+            int c = synchconsole->SynchGetChar();
+            machine->ReadRigster(2); // registre utilisé pour le retour d'une valeur à la fin d'une fonction est le registre 2
+            break;
+        }
+
         case SC_Exit:
         {
             DEBUG('s', "Exit\n");
