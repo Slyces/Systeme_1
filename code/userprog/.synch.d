@@ -5,4 +5,5 @@
  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
  ../machine/translate.h ../threads/list.h ../threads/system.h \
  ../threads/scheduler.h ../machine/interrupt.h ../threads/list.h \
- ../machine/stats.h ../machine/timer.h
+ ../machine/stats.h ../machine/timer.h ../userprog/synchconsole.h \
+ ../machine/console.h

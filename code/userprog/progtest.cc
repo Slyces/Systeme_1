@@ -1,4 +1,5 @@
 // progtest.cc
+
 //      Test routines for demonstrating that Nachos can load
 //      a user program and execute it.
 //
@@ -13,34 +14,36 @@
 #include "console.h"
 #include "addrspace.h"
 #include "synch.h"
+#include "synchconsole.h"
 
-//----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 // StartProcess
 //      Run a user program.  Open the executable, load it into
 //      memory, and jump to it.
-//----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 void
-StartProcess (char *filename)
+StartProcess(char *filename)
 {
-    OpenFile *executable = fileSystem->Open (filename);
+    OpenFile  *executable = fileSystem->Open(filename);
     AddrSpace *space;
 
     if (executable == NULL)
-      {
-	  printf ("Unable to open file %s\n", filename);
-	  return;
-      }
-    space = new AddrSpace (executable);
+    {
+        printf("Unable to open file %s\n", filename);
+        return;
+    }
+    space                = new AddrSpace(executable);
     currentThread->space = space;
 
-    delete executable;		// close file
+    delete executable;      // close file
 
-    space->InitRegisters ();	// set the initial register values
-    space->RestoreState ();	// load page table register
+    space->InitRegisters(); // set the initial register values
+    space->RestoreState();  // load page table register
 
-    machine->Run ();		// jump to the user progam
-    ASSERT (FALSE);		// machine->Run never returns;
+    machine->Run();         // jump to the user progam
+    ASSERT(FALSE);          // machine->Run never returns;
     // the address space exits
     // by doing the syscall "exit"
 }
@@ -48,96 +51,130 @@ StartProcess (char *filename)
 // Data structures needed for the console test.  Threads making
 // I/O requests wait on a Semaphore to delay until the I/O completes.
 
-static Console *console;
+static Console   *console;
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
-//----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // ConsoleInterruptHandlers
 //      Wake up the thread that requested the I/O.
-//----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 static void
-ReadAvailHandler (void *arg)
+ReadAvailHandler(void *arg)
 {
-    (void) arg;
-    readAvail->V ();
-}
-static void
-WriteDoneHandler (void *arg)
-{
-    (void) arg;
-    writeDone->V ();
+    (void)arg;
+    readAvail->V();
 }
 
-//----------------------------------------------------------------------
+static void
+WriteDoneHandler(void *arg)
+{
+    (void)arg;
+    writeDone->V();
+}
+
+// ----------------------------------------------------------------------
 // ConsoleTest
 //      Test the console by echoing characters typed at the input onto
 //      the output.  Stop when the user types a 'q'.
-//----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 void
-ConsoleTest (const char *in, const char *out)
+ConsoleTest(const char *in, const char *out)
 {
     char ch;
 
-    readAvail = new Semaphore ("read avail", 0);
-    writeDone = new Semaphore ("write done", 0);
-    console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, 0);
+    readAvail = new Semaphore("read avail", 0);
+    writeDone = new Semaphore("write done", 0);
+    console   = new Console(in, out, ReadAvailHandler, WriteDoneHandler, 0);
+
 
     #ifdef CHANGED
-    console->PutChar (62);
-    writeDone->P ();
-    console->PutChar (62);
-    writeDone->P ();
-    console->PutChar (32);
-    writeDone->P ();
-    #endif //CHANGED
+    console->PutChar(62);
+    writeDone->P();
+    console->PutChar(62);
+    writeDone->P();
+    console->PutChar(32);
+    writeDone->P();
+    #endif // CHANGED
 
     for (;;)
-      {
-    	  readAvail->P ();	// wait for character to arrive
-    	  ch = console -> GetChar ();
+    {
+        readAvail->P(); // wait for character to arrive
+        ch = console->GetChar();
 
         #ifdef CHANGED
+
         if (ch != '\n') {
-          console->PutChar (60);
-          writeDone->P ();
+            console->PutChar(60);
+            writeDone->P();
         }
-        #endif //CHANGED
-        console->PutChar (ch);	// echo it!
-    	  writeDone->P ();	// wait for write to finish
-        #ifdef CHANGED
-        if (ch != '\n') {
-          console->PutChar (62);
-          writeDone->P ();
-        }
-        #endif //CHANGED
+        #endif // CHANGED
+
+        console->PutChar(ch);   // echo it!
+        writeDone->P();         // wait for write to finish
 
         #ifdef CHANGED
+
+        if (ch != '\n') {
+            console->PutChar(62);
+            writeDone->P();
+        }
+        #endif // CHANGED
+
+        #ifdef CHANGED
+
         if (ch == '\n') {
-          console->PutChar (62);
-          writeDone->P ();
-          console->PutChar (62);
-          writeDone->P ();
-          console->PutChar (32);
-          writeDone->P ();
+            console->PutChar(62);
+            writeDone->P();
+            console->PutChar(62);
+            writeDone->P();
+            console->PutChar(32);
+            writeDone->P();
         }
-        #endif //CHANGED
+        #endif // CHANGED
 
         if (ch == 'q') {
-    	      printf ("\nNothing more, bye!\n");
-    	      break;		// if q, quit
-    	  }
+            printf("\nNothing more, bye!\n");
+            break; // if q, quit
+        }
 
         #ifdef CHANGED
-          if (ch == EOF) {
-            printf ("\n>> Aurevoir.\n");
-            break; //if Eof, quit politely.
-          }
-        #endif
-      }
+
+        if (ch == EOF) {
+            printf("\n>> Aurevoir.\n");
+            break; // if Eof, quit politely.
+        }
+        #endif // ifdef CHANGED
+    }
     delete console;
     delete readAvail;
     delete writeDone;
 }
+
+#ifdef CHANGED
+void
+SynchConsoleTest(const char *in, const char *out) {
+    char ch;
+    SynchConsole *test_synchconsole = new SynchConsole(in, out);
+
+    // Starting synch console, emmiting >> for user input
+    test_synchconsole->SynchPutString(">> ");
+
+    // test_synchconsole->SynchPutChar('>');
+    // test_synchconsole->SynchPutChar('>');
+
+    while ((ch = test_synchconsole->SynchGetChar()) != EOF) {
+        if (ch == '\n') {
+            test_synchconsole->SynchPutString("\n>> ");
+        } else {
+            test_synchconsole->SynchPutString("<-");
+            test_synchconsole->SynchPutChar(ch);
+            test_synchconsole->SynchPutString("->");
+        }
+    }
+    fprintf(stderr, "EOF detected in SynchConsole!\n");
+}
+
+#endif // CHANGED
