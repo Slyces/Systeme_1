@@ -38,6 +38,10 @@
 
 #ifdef IN_USER_MODE
 
+# ifdef CHANGED
+void PutChar(char c);
+# endif // ifdef CHANGED
+
 // LB: This part is read only on compiling the test/*.c files.
 // It is *not* read on compiling test/start.S
 

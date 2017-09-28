@@ -87,6 +87,9 @@ ExceptionHandler(ExceptionType which)
         case SC_PutChar:
         {
             DEBUG('s', "PutChar\n");
+            int c = machine->ReadRegister(4); // information stockée dans r4
+            synchconsole->SynchPutChar(c);
+            break;
         }
         #endif // CHANGED
 

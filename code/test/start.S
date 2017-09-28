@@ -146,7 +146,10 @@ Fork:
 	j	$31
 	.end Yield
 
-#ifdef CHANGED
+/*
+ * Fonction utilisateur (Action 4.2)
+ */
+
   .globl PutChar
   .ent	PutChar
 PutChar:
@@ -154,7 +157,10 @@ PutChar:
   syscall
   j	$31
   .end PutChar
-#endif
+
+  /*
+   * Endfunction
+   */
 
 /* dummy function to keep gcc happy */
         .globl  __main

@@ -6,4 +6,4 @@
  ../threads/switch.h ../threads/synch.h ../threads/list.h \
  ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
  ../threads/list.h ../machine/stats.h ../machine/timer.h \
- ../machine/valgrind.h
+ ../userprog/synchconsole.h ../machine/console.h ../machine/valgrind.h

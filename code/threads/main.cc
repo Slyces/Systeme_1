@@ -24,9 +24,10 @@
 # include "progtest.h"
 #endif // ifdef USER_PROGRAM
 
-#ifdef CHANGED
-# include "synchconsole.h"
-#endif // CHANGED
+
+// #ifdef CHANGED
+// # include "synchconsole.h"
+// #endif // CHANGED
 
 
 // External functions used by this file
@@ -124,6 +125,11 @@ main(int argc, char **argv)
         if (!strcmp(*argv, "-x"))
         { // run a user program
             ASSERT(argc > 1);
+
+            # ifdef CHANGED
+            synchconsole = new SynchConsole(NULL, NULL);
+            # endif // CHANGED
+
             StartProcess(*(argv + 1));
             argCount = 2;
         }
