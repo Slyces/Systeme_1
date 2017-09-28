@@ -25,11 +25,6 @@
 #endif // ifdef USER_PROGRAM
 
 
-// #ifdef CHANGED
-// # include "synchconsole.h"
-// #endif // CHANGED
-
-
 // External functions used by this file
 
 extern void ThreadTest(void), Copy(char *unixFile, char *nachosFile);
