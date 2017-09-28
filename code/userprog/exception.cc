@@ -94,12 +94,20 @@ ExceptionHandler(ExceptionType which)
 
         case SC_PutString:
         {
+            // @TODO Si taille flottante, faire en plusieurs fois.
             DEBUG('s', "PutString\n");
             int   adress = machine->ReadRegister(4);
             char *string = (char *)malloc(MAX_STRING_SIZE * sizeof(char));
             copyStringFromMachine(adress, string, MAX_STRING_SIZE);
             synchconsole->SynchPutString(string);
             free(string);
+            break;
+        }
+
+        case SC_Exit:
+        {
+            DEBUG('s', "Exit\n");
+            interrupt->Exit();
             break;
         }
         #endif // CHANGED
