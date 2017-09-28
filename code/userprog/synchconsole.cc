@@ -7,9 +7,6 @@
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
-//ceci est un commentaire
-// fin commentaire
-int f(float k);
 
 static void ReadAvailHandler(void *arg) {
     (void)arg; readAvail->V();
