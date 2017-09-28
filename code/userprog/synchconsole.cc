@@ -7,9 +7,9 @@
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
-// Git tuto
-int f(int k);
-// end tuto
+//ceci est un commentaire
+// fin commentaire
+int f(float k);
 
 static void ReadAvailHandler(void *arg) {
     (void)arg; readAvail->V();
