@@ -36,6 +36,12 @@ extern Timer *timer;                 // the hardware alarm clock
 extern Machine *machine; // user program memory and registers
 
 # ifdef CHANGED
+int copyStringFromMachine(int      from,
+                          char    *to,
+                          unsigned size);
+
+#  define MAX_STRING_SIZE 32
+
 #  include "synchconsole.h"
 extern SynchConsole *synchconsole; // synchconsole
 # endif // ifdef CHANGED
