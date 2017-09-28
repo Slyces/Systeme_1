@@ -7,6 +7,10 @@
 static Semaphore *readAvail;
 static Semaphore *writeDone;
 
+// Git tuto
+int f(int k);
+// end tuto
+
 static void ReadAvailHandler(void *arg) {
     (void)arg; readAvail->V();
 }
