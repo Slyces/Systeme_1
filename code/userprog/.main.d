@@ -6,4 +6,4 @@
  ../machine/translate.h ../threads/scheduler.h ../threads/list.h \
  ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
  ../machine/timer.h ../userprog/synchconsole.h ../machine/console.h \
- ../userprog/progtest.h
+ ../userprog/syscall.h ../userprog/progtest.h
