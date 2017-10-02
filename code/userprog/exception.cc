@@ -26,10 +26,6 @@
 #include "system.h"
 #include "syscall.h"
 
-#ifdef CHANGED
-# include <stdlib.h>
-#endif // ifdef CHANGED
-
 // ----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -122,34 +118,11 @@ ExceptionHandler(ExceptionType which)
         {
             DEBUG('s', "GetString\n");
             unsigned int adress = machine->ReadRegister(4);
-            int n               = machine->ReadRegister(5);
-
-            // char * string = (char *) malloc(n * sizeof(char));
-            char string[n];
+            int n = machine->ReadRegister(5);
+            char * string = (char *) malloc(n * sizeof(char));
             synchconsole->SynchGetString(string, n);
             copyStringToMachine(string, adress, n);
-
-            // free(string);
-            break;
-        }
-
-        case SC_PutInt:
-        {
-            DEBUG('s', "PutInt\n");
-            int k    = machine->ReadRegister(4);
-            int size = (8 * sizeof(k)) / 3 + 1; // always > to the number of
-                                                // digits of the larger
-            char buffer[size];                  // int that can be encoded
-            snprintf(buffer, size, "%d", k);
-            synchconsole->SynchPutString(buffer);
-            break;
-        }
-
-        case SC_GetInt:
-        {
-            DEBUG('s', "GetInt\n");
-            int *k = machine->ReadRegister(4);
-            
+            free(string);
             break;
         }
 
