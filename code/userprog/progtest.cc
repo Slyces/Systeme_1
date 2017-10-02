@@ -160,12 +160,10 @@ SynchConsoleTest(const char *in, const char *out) {
     SynchConsole *test_synchconsole = new SynchConsole(in, out);
 
     // Starting synch console, emmiting >> for user input
+    test_synchconsole->SynchPutString("Console synchrone\n");
     test_synchconsole->SynchPutString(">> ");
 
-    // test_synchconsole->SynchPutChar('>');
-    // test_synchconsole->SynchPutChar('>');
-
-    while ((ch = test_synchconsole->SynchGetChar()) != EOF) {
+    while ((ch = test_synchconsole->SynchGetChar()) != EOF && ch != 'q') {
         if (ch == '\n') {
             test_synchconsole->SynchPutString("\n>> ");
         } else {
@@ -174,7 +172,8 @@ SynchConsoleTest(const char *in, const char *out) {
             test_synchconsole->SynchPutString("->");
         }
     }
-    fprintf(stderr, "EOF detected in SynchConsole!\n");
+    test_synchconsole->SynchPutString("\n\nLa console se ferme ...\n\n");
+    interrupt->Halt();
 }
 
 #endif // CHANGED

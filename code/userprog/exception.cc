@@ -108,7 +108,21 @@ ExceptionHandler(ExceptionType which)
         {
             DEBUG('s', "GetChar\n");
             int c = synchconsole->SynchGetChar();
-            machine->ReadRigster(2); // registre utilisé pour le retour d'une valeur à la fin d'une fonction est le registre 2
+            machine->WriteRegister(2, c); // registre utilisé pour le retour
+                                          // d'une valeur à la fin d'une
+                                          // fonction est le registre 2
+            break;
+        }
+
+        case SC_GetString:
+        {
+            DEBUG('s', "GetString\n");
+            unsigned int adress = machine->ReadRegister(4);
+            int n = machine->ReadRegister(5);
+            char * string = (char *) malloc(n * sizeof(char));
+            synchconsole->SynchGetString(string, n);
+            copyStringToMachine(string, adress, n);
+            free(string);
             break;
         }
 

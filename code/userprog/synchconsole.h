@@ -8,6 +8,7 @@
     #include "copyright.h"
     #include "utility.h"
     #include "console.h"
+    #include "syscall.h"
 
     class SynchConsole:dontcopythis {
       public:

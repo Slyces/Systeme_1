@@ -241,11 +241,37 @@ int copyStringFromMachine(int from, char *to, unsigned size) {
         if ((to[0] == '\0') || (to[0] == EOF)) {
             return i;
         }
-				to++;
+        to++;
         ++i;
     }
     to[0] = '\0';
     return i;
+}
+
+// ============================================================================
+// Action 7.3
+// ============================================================================
+int copyStringToMachine(char *from, unsigned int to, int size) {
+    int i = 0;
+
+    while (i < size && from[i] != EOF && from[i] != '\0') {
+        // char *test =(char *) malloc(sizeof(char));
+        machine->WriteMem(to + i, 1, (char)from[i]);
+
+        // machine->ReadMem(to + i, 1,(int *) test);
+        i++;
+
+        // free(test);
+    }
+    machine->WriteMem(to + (i + 1), 1, from[i + 1]);
+
+    // emptying the overflow chars
+    char c;
+
+    while (c != EOF && c != '\n') {
+        c = synchconsole->SynchGetChar();
+    }
+    return i + 1;
 }
 
 #endif // ifdef CHANGED

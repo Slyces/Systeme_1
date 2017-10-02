@@ -33,7 +33,6 @@ void SynchConsole::SynchPutChar(int ch) {
     writeDone->P();
 }
 
-// @TODO vérifier mon erreur
 int SynchConsole::SynchGetChar() {
     readAvail->P(); // wait for character to arrive
     return console->GetChar();
@@ -53,6 +52,7 @@ void SynchConsole::SynchPutString(const char *s) {
 
   #if 1
 void SynchConsole::SynchGetString(char *s, int n) {
+    // @TODO ajouter des locks pour le multi-threading
     int  i = 0;
     char c;
 

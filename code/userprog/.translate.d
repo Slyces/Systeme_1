@@ -6,4 +6,4 @@
  ../threads/utility.h ../threads/thread.h ../machine/machine.h \
  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
  ../threads/list.h ../machine/stats.h ../machine/timer.h \
- ../userprog/synchconsole.h ../machine/console.h
+ ../userprog/synchconsole.h ../machine/console.h ../userprog/syscall.h
