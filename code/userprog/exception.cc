@@ -148,8 +148,11 @@ ExceptionHandler(ExceptionType which)
         case SC_GetInt:
         {
             DEBUG('s', "GetInt\n");
-            int *k = machine->ReadRegister(4);
-            
+            int k = machine->ReadRegister(4);
+            int size = (8 * sizeof(k)) / 3 + 1;
+            char buffer[size];
+            synchconsole->SynchGetString(buffer, size);
+            sscanf(buffer, "%d", &k);
             break;
         }
 
