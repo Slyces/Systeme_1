@@ -256,7 +256,7 @@ int copyStringToMachine(char *from, unsigned int to, int size) {
 
     while (i < size && from[i] != EOF && from[i] != '\0') {
         // char *test =(char *) malloc(sizeof(char));
-        machine->WriteMem(to + i, 1, (char)from[i]);
+        machine->WriteMem(to + i, 4, (char)from[i]);
 
         // machine->ReadMem(to + i, 1,(int *) test);
         i++;

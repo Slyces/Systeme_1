@@ -140,6 +140,7 @@ ExceptionHandler(ExceptionType which)
             int size = (8 * sizeof(k)) / 3 + 1; // always > to the number of
                                                 // digits of the larger
             char buffer[size];                  // int that can be encoded
+
             snprintf(buffer, size, "%d", k);
             synchconsole->SynchPutString(buffer);
             break;
@@ -148,11 +149,17 @@ ExceptionHandler(ExceptionType which)
         case SC_GetInt:
         {
             DEBUG('s', "GetInt\n");
-            int k = machine->ReadRegister(4);
-            int size = (8 * sizeof(k)) / 3 + 1;
-            char buffer[size];
-            synchconsole->SynchGetString(buffer, size);
-            sscanf(buffer, "%d", &k);
+            int to = machine->ReadRegister(4);
+            int max_size = 12;
+            int *int_buffer =(int*) malloc(sizeof(int));
+
+            char string_buffer[max_size];
+            synchconsole->SynchGetString(string_buffer, max_size);
+            sscanf(string_buffer, "%d", int_buffer);
+
+            machine->WriteMem(to, 4, *int_buffer);
+
+            free(int_buffer);
             break;
         }
 
