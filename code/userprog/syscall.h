@@ -37,18 +37,14 @@
 # define SC_PutString   12
 # define SC_GetChar     13
 # define SC_GetString   14
-# define SC_PutInt      15
-# define SC_GetInt      16
 #endif // ifdef CHANGED
 
 #ifdef IN_USER_MODE
 
 # ifdef CHANGED
-void PutString(char *string);
+void PutString(char * string);
 void PutChar(char c);
-void GetString(char *s, int n);
-void PutInt(int k);
-void GetInt(int *k);
+void GetString(char * s, int n);
 # endif // ifdef CHANGED
 
 // LB: This part is read only on compiling the test/*.c files.

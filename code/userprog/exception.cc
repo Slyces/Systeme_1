@@ -26,10 +26,6 @@
 #include "system.h"
 #include "syscall.h"
 
-#ifdef CHANGED
-# include <stdlib.h>
-#endif // ifdef CHANGED
-
 // ----------------------------------------------------------------------
 // UpdatePC : Increments the Program Counter register in order to resume
 // the user program immediately after the "syscall" instruction.
@@ -122,14 +118,11 @@ ExceptionHandler(ExceptionType which)
         {
             DEBUG('s', "GetString\n");
             unsigned int adress = machine->ReadRegister(4);
-            int n               = machine->ReadRegister(5);
-
-            // char * string = (char *) malloc(n * sizeof(char));
-            char string[n];
+            int n = machine->ReadRegister(5);
+            char * string = (char *) malloc(n * sizeof(char));
             synchconsole->SynchGetString(string, n);
             copyStringToMachine(string, adress, n);
-
-            // free(string);
+            free(string);
             break;
         }
 
